@@ -8,22 +8,33 @@ interface Message {
 
 import './App.css'
 function App() {
-    const [data, setData] = useState<Message[]>([]); 
-    const [loading, setLoading] = useState(true); 
+    const [data, setData] = useState<Message[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchData = async () => {
+        try {
+            const response = await api();
+            // Compara se há dados novos antes de atualizar
+            if (JSON.stringify(response) !== JSON.stringify(data)) {
+                setData(response);
+            }
+        } catch (error) {
+            console.error("Erro ao buscar dados:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await api(); 
-                setData(response);       
-            } catch (error) {
-                console.error("Erro ao buscar dados:", error);
-            } finally {
-                setLoading(false);            
-            }
-        };
+        fetchData(); // Busca inicial
 
-        fetchData();
+        // Configura o intervalo para verificar a cada 30 segundos
+        const interval = setInterval(() => {
+            fetchData();
+        }, 30000);
+
+        // Limpa o intervalo quando o componente for desmontado
+        return () => clearInterval(interval);
     }, []);
 
     if (loading) return (
@@ -33,12 +44,12 @@ function App() {
     );
 
     return (
-        <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
-                <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
-                    Mensagens da Comunidade
-                </h1>
-                
+        <div className="min-h-screen w-full bg-gray-100 px-4 py-8 flex flex-col">
+            <h1 className="text-4xl font-bold my-8">
+                <span className="rainbow-text">1 ANO DE PARTNER DA STHERZADA</span>
+                <span className="ml-2">🎉</span>
+            </h1>
+            <div className="w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {data.map((item, index) => (
                         <div 
@@ -63,6 +74,20 @@ function App() {
                     ))}
                 </div>
             </div>
+
+            <footer className="mt-auto py-8 text-center">
+                <p className="text-lg">
+                    Deseja mandar uma mensagem também?{" "}
+                    <a 
+                        href="https://forms.gle/2YhFD7sQPGRa7aQDA" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-purple-600 hover:text-purple-800 underline font-medium"
+                    >
+                        Clique aqui
+                    </a>
+                </p>
+            </footer>
         </div>
     );
 }
