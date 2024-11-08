@@ -43,10 +43,6 @@
 }
 
 .rainbow-text {
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 2rem 0;
-  animation: rainbow-animation 15s linear infinite;
   background: linear-gradient(
     to right,
     #ff0000,
@@ -59,9 +55,11 @@
     #ff0000
   );
   background-size: 200% 100%;
+  animation: rainbow-animation 15s linear infinite;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  display: inline-block;
 }
 
 @keyframes rainbow-animation {

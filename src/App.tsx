@@ -44,7 +44,7 @@ function App() {
 
     return (
         <div className="min-h-screen w-full bg-gray-100 px-4 py-8 flex flex-col">
-            <h1 className="text-4xl font-bold my-8">
+            <h1 className="text-4xl font-bold my-8 text-center flex justify-center items-center">
                 <span className="rainbow-text">1 ANO DE PARTNER DA STHERZADA</span>
                 <span className="ml-2">🎉</span>
             </h1>
