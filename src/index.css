@@ -15,31 +15,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.rainbow-text {
-  background: linear-gradient(
-    to right,
-    #ff0000,
-    #ff7f00,
-    #ffff00,
-    #00ff00,
-    #0000ff,
-    #4b0082,
-    #8b00ff,
-    #ff0000
-  );
-  background-size: 200% 100%;
-  animation: rainbow-animation 15s linear infinite;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline-block;
-}
-
-@keyframes rainbow-animation {
-  0% { background-position: 0 0; }
-  100% { background-position: 200% 0; }
-}
-
 a {
   font-weight: 500;
   color: #646cff;
@@ -115,4 +90,52 @@ button:focus-visible {
 
 .animate-float {
     animation: float 3s ease-in-out infinite;
+}
+
+@keyframes like {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animate-like {
+    animation: like 0.3s ease-in-out;
+}
+
+
+
+.rainbow-text {
+  background: linear-gradient(
+    to right,
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #0000ff,
+    #4b0082,
+    #8b00ff,
+    #ff0000
+  );
+  background-size: 200% 100%;
+  animation: rainbow-animation 15s linear infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+@keyframes rainbow-animation {
+  0% { background-position: 0 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }

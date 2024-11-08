@@ -4,16 +4,17 @@ import api from './services/axios.ts';
 interface Message {
     twitch: string;
     mensagem: string;
+    id?: string;
 }
 
 function App() {
     const [data, setData] = useState<Message[]>([]);
     const [loading, setLoading] = useState(true);
+    const [likes, setLikes] = useState<{[key: string]: boolean}>({});
 
     const fetchData = async () => {
         try {
             const response = await api();
-            // Compara se há dados novos antes de atualizar
             if (JSON.stringify(response) !== JSON.stringify(data)) {
                 setData(response);
             }
@@ -25,16 +26,21 @@ function App() {
     };
 
     useEffect(() => {
-        fetchData(); // Busca inicial
+        fetchData();
 
-        // Configura o intervalo para verificar a cada 30 segundos
         const interval = setInterval(() => {
             fetchData();
         }, 30000);
 
-        // Limpa o intervalo quando o componente for desmontado
         return () => clearInterval(interval);
     }, []);
+
+    const handleLike = (index: number) => {
+        setLikes(prev => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-screen">
@@ -60,10 +66,20 @@ function App() {
                             }}
                         >
                             <div className="p-6">
-                                <div className="flex items-center mb-4">
+                                <div className="flex items-center justify-between mb-4">
                                     <span className="text-purple-600 font-semibold">
                                         {item?.twitch}
                                     </span>
+                                    <button 
+                                        onClick={() => handleLike(index)}
+                                        className="focus:outline-none transform transition-transform duration-200 hover:scale-110 bg-transparent border-none"
+                                    >
+                                        {likes[index] ? (
+                                            <span className="text-2xl animate-like">💜</span>
+                                        ) : (
+                                            <span className="text-2xl opacity-70 hover:opacity-100">🖤</span>
+                                        )}
+                                    </button>
                                 </div>
                                 <p className="text-gray-600">
                                     {item?.mensagem}
