@@ -6,7 +6,6 @@ interface Message {
     mensagem: string;
 }
 
-import './App.css'
 function App() {
     const [data, setData] = useState<Message[]>([]);
     const [loading, setLoading] = useState(true);
@@ -92,4 +91,4 @@ function App() {
     );
 }
 
-export default App
+export default App;
