@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import api from './services/axios';
+import api from './services/axios.ts';
 
 interface Message {
     twitch: string;
@@ -49,11 +49,11 @@ function App() {
                 <span className="ml-2">🎉</span>
             </h1>
             <div className="w-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
                     {data.map((item, index) => (
                         <div 
                             key={index} 
-                            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 animate-float"
+                            className="break-inside-avoid bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 animate-float"
                             style={{
                                 animation: `float ${3 + Math.random() * 2}s ease-in-out infinite`,
                                 animationDelay: `${Math.random() * 2}s`
