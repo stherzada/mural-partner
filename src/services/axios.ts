@@ -4,6 +4,7 @@ import axios from "axios";
 interface ResponseData {
     Twitch: string;
     Mensagem: string;
+    Id: string;
 }
 
 async function api() {
@@ -11,7 +12,8 @@ async function api() {
         const response = await axios.get<ResponseData[]>('https://script.google.com/macros/s/AKfycbxKyd290oCunOdYlytU4FoUp2vPKlglFe0qUentNP3YZcbiK4jVlqQGsKCpaQ7-TKd8/exec');
         const filteredData = response.data.map((item: ResponseData) => ({
             twitch: item.Twitch,
-            mensagem: item.Mensagem
+            mensagem: item.Mensagem,
+            id: item.Id
         }));
         
         return filteredData;
