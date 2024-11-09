@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjcWZxc2t2aXp4cWdmbW1lcXVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzExMDk1MzcsImV4cCI6MjA0NjY4NTUzN30.xhZx65ir9m9Jn0XIJEeBeueLI72THSSSEqJlCUg5P-ceyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjcWZxc2t2aXp4cWdmbW1lcXVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzExMDk1MzcsImV4cCI6MjA0NjY4NTUzN30.xhZx65ir9m9Jn0XIJEeBeueLI72THSSSEqJlCUg5P-c';
-const SERVICE_KEY = process.env.API_KEY;
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjcWZxc2t2aXp4cWdmbW1lcXVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzExMDk1MzcsImV4cCI6MjA0NjY4NTUzN30.xhZx65ir9m9Jn0XIJEeBeueLI72THSSSEqJlCUg5P-c';
+const SERVICE_KEY = import.meta.env.VITE_API_KEY;
 
 const supabaseApi = axios.create({
     baseURL: 'https://dcqfqskvizxqgfmmequm.supabase.co',
@@ -48,5 +48,6 @@ export async function saveLike(messageId: string): Promise<Like | null> {
         return null;
     }
 }
+
 
 export default supabaseApi; 
