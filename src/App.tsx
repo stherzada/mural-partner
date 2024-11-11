@@ -13,6 +13,14 @@ const supabase = createClient(
     import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
+const debounce = (fn: Function, delay: number) => {
+    let timeoutId: NodeJS.Timeout;
+    return (...args: any[]) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn(...args), delay);
+    };
+};
+
 function App() {
     const [data, setData] = useState<Message[]>([]);
     const [loading, setLoading] = useState(true);
@@ -49,20 +57,23 @@ function App() {
         setLikes(likesMap);
     }, []);
 
-    const handleLike = async (messageId: string) => {
-        try {
-            const numericId = parseInt(messageId);
-            if (isNaN(numericId)) throw new Error("ID inválido");
+    const handleLike = useCallback(
+        debounce(async (messageId: string) => {
+            try {
+                const numericId = parseInt(messageId);
+                if (isNaN(numericId)) throw new Error("ID inválido");
 
-            const { error } = await supabase
-                .rpc('increment_like', { message_id: numericId });
-                
-            if (error) throw error;
-            await fetchLikes();
-        } catch (error) {
-            console.error("Erro ao salvar like:", error);
-        }
-    };
+                const { error } = await supabase
+                    .rpc('increment_like', { message_id: numericId });
+                    
+                if (error) throw error;
+                await fetchLikes();
+            } catch (error) {
+                console.error("Erro ao salvar like:", error);
+            }
+        }, 3500),
+        [fetchLikes]
+    );
 
     useEffect(() => {
         fetchData();
