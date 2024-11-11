@@ -6,16 +6,16 @@ import { LoadingSpinner } from "./components/LoadingSpinner";
 import { MessageCard } from "./components/MessageCard";
 
 const FORM_URL = "https://forms.gle/2YhFD7sQPGRa7aQDA";
-const REFRESH_INTERVAL = 30000;
+const REFRESH_INTERVAL = 86400;
 
 const supabase = createClient(
     import.meta.env.VITE_SUPABASE_URL,
     import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
-const debounce = (fn: Function, delay: number) => {
+const debounce = <T extends (...args: unknown[]) => unknown>(fn: T, delay: number) => {
     let timeoutId: NodeJS.Timeout;
-    return (...args: any[]) => {
+    return (...args: Parameters<T>) => {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => fn(...args), delay);
     };
