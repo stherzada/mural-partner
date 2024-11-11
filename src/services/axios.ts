@@ -1,13 +1,12 @@
 import axios from "axios";
 
-// Adicione esta interface no início do arquivo
 interface ResponseData {
     Twitch: string;
     Mensagem: string;
     id: string;
 }
 
-async function api() {
+async function fetchSheetMessages() {
     try {
         const response = await axios.get<ResponseData[]>('https://script.google.com/macros/s/AKfycbxKyd290oCunOdYlytU4FoUp2vPKlglFe0qUentNP3YZcbiK4jVlqQGsKCpaQ7-TKd8/exec');
         const filteredData = response.data.map((item: ResponseData) => ({
@@ -23,4 +22,4 @@ async function api() {
     }
 }
 
-export default api;
+export default fetchSheetMessages;
