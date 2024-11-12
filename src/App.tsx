@@ -13,7 +13,7 @@ const supabase = createClient(
     import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
-const debounce = <T extends (...args: unknown[]) => unknown>(fn: T, delay: number) => {
+const debounce = <T extends (...args: any[]) => any>(fn: T, delay: number) => {
     let timeoutId: NodeJS.Timeout;
     return (...args: Parameters<T>) => {
         clearTimeout(timeoutId);
@@ -127,3 +127,5 @@ function App() {
 }
 
 export default App;
+
+
